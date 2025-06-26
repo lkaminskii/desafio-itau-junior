@@ -1,21 +1,21 @@
 package lucas.dev.itau.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Statistic {
 
-    private static Long idCounter = 1L;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private final Long id;
-
+    @JsonFormat(pattern = "0.00")
     private Double count;
+    @JsonFormat(pattern = "0.00")
     private Double sum;
+    @JsonFormat(pattern = "0.00")
     private Double avg;
+    @JsonFormat(pattern = "0.00")
     private Double min;
+    @JsonFormat(pattern = "0.00")
     private Double max;
 
     public Statistic(Double count, Double sum, Double avg, Double min, Double max){
-        this.id = idCounter++;
         this.count = count;
         this.sum = sum;
         this.avg = avg;

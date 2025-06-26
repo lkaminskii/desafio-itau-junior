@@ -22,24 +22,24 @@ public class ItauApplication {
 	private static void demoHttpClientUsage() throws Exception {
 		HttpClient client = HttpClient.newHttpClient();
 
-		String json = "{\"valor\": 100.0}";
+		double[] values = {100.0, 50.5, 200.75, 10.0, 300.0, 5.25, 80.0, 150.0, 60.0, 90.9};
+		for (double value : values) {
+			String json = String.format("{\"valor\": %.2f}", value);
+			HttpRequest postRequest = HttpRequest.newBuilder()
+				.uri(URI.create("http://localhost:8080/transactions"))
+				.header("Content-Type", "application/json")
+				.POST(HttpRequest.BodyPublishers.ofString(json))
+				.build();
+			HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+			System.out.println("POST response: " + postResponse.body());
+		}
 
-		HttpRequest postRequest = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/transactions"))
-			.header("Content-Type", "application/json")
-			.POST(HttpRequest.BodyPublishers.ofString(json))
-			.build();
-
-		HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
-		System.out.println("POST response: " + postResponse.body());
-
-		HttpRequest getRequest = HttpRequest.newBuilder()
-			.uri(URI.create("http://localhost:8080/transactions"))
+		HttpRequest statisticsRequest = HttpRequest.newBuilder()
+			.uri(URI.create("http://localhost:8080/statistics"))
 			.GET()
 			.build();
-
-		HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
-		System.out.println("GET response: " + getResponse.body());
+		HttpResponse<String> statisticsResponse = client.send(statisticsRequest, HttpResponse.BodyHandlers.ofString());
+		System.out.println("STATISTICS response: " + statisticsResponse.body());
 	}
 
 }

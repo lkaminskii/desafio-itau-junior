@@ -31,4 +31,8 @@ public class TransactionRepository implements ITransactionRepository{
         }
         return false; 
     }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 }
