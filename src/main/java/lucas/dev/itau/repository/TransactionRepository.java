@@ -20,30 +20,6 @@ public class TransactionRepository implements ITransactionRepository{
     }
 
     @Override
-    public List findAllTransactions() {
-        return transactions;
-    }
-
-    @Override
-    public Transaction findTransactionById(Long id) {
-        return transactions.stream()
-                .filter(transaction -> transaction.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public Transaction updateTransaction(Transaction transaction) {
-        for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId().equals(transaction.getId())) {
-                transactions.set(i, transaction);
-                return transaction;
-            }
-        }
-        throw new RuntimeException("Transaction not found");
-    }
-
-    @Override
     public boolean deleteTransactionById(Long id) {
         Optional<Transaction> transaction = transactions.stream()
             .filter(e -> e.getId().equals(id))

@@ -15,20 +15,11 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public Transaction saveTransaction(Transaction transaction){
+    public Transaction saveTransaction(Transaction transaction) throws RuntimeException{
+        if (transaction.getValor() < 0){
+            throw new RuntimeException("O valor da transação não pode ser menor que 0!");
+        }
         return transactionRepository.saveTransaction(transaction);
-    }
-
-    public List findAllTransactions(){
-        return transactionRepository.findAllTransactions();
-    }
-
-    public Transaction findTransactionById(Long id){
-        return transactionRepository.findTransactionById(id);
-    }
-
-    public Transaction updateTransaction(Transaction transaction){
-        return transactionRepository.updateTransaction(transaction);
     }
 
     public boolean deleteTransactionById(Long id){

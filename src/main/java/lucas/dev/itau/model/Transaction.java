@@ -2,6 +2,7 @@ package lucas.dev.itau.model;
 
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Transaction {
 
@@ -9,17 +10,18 @@ public class Transaction {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private final Long id;
 
+    @JsonFormat(pattern = "0.00")
     private Double valor;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private OffsetDateTime dataHora;
 
-    public Transaction(Double valor, OffsetDateTime dataHora){
+    public Transaction(Double valor){
         this.id = idCounter++;
         this.valor = valor;
-        this.dataHora = dataHora;
+        this.dataHora = OffsetDateTime.now();
     }
 
     public void setValor(Double valor){this.valor = valor;}
-    public void setDataHora(OffsetDateTime dataHora){this.dataHora = dataHora;}
 
     public Double getValor(){return valor;}
     public OffsetDateTime getDataHora(){return dataHora;}
